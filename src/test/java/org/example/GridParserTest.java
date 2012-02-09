@@ -14,11 +14,17 @@ public class GridParserTest {
 
     @Before
     public void setup() {
+        
+        // minimum: 1 row, 5 columns
+        // maximum: 10 rows, 100 columns
         gridParser = new GridParser();
     }
 
-    // minimum: 1 row, 5 columns
-    // maximum: 10 rows, 100 columns
+    @Test(expected = GridParserException.class)
+    public void test_GridParser_throws_exception_if_given_a_null_reader() throws GridParserException {
+        gridParser.parse(null);
+    }
+    
     @Test(expected = GridParserException.class)
     public void test_GridParser_throws_exception_if_given_an_empty_grid() throws GridParserException {
 

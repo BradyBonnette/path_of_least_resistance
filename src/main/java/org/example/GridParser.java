@@ -88,6 +88,9 @@ public class GridParser {
         String line;
         List<String> lines = new ArrayList<String>();
 
+        if (reader == null)
+            throw new GridParserException("GridParser received a null reader.");
+        
         try {
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
