@@ -1,1 +1,20 @@
-Edit this with some useful information later.
+# Path of Least Resistance
+
+A simple application that, when given a two dimensional array of integers, can calculate a path that contains
+the smallest weight (resistance).
+
+## Install Java and Maven
+
+First, you will need to have Java installed. Version 6 is sufficient.
+
+The easiest way to build this application is to use [Maven 2.2.1](http://maven.apache.org/download.html). Installation notes can be found on that website.
+
+## Run the application
+
+You can use Maven to execute the application:
+
+    mvn exec:java -Dexec.mainClass="org.example.PathOfLeastResistance" -Dexec.args="full_path_to_test_data"
+
+If you would like to run unit tests, run:
+
+    mvn test
