@@ -5,7 +5,7 @@ the smallest weight (resistance).
 
 ## Install Java and Maven
 
-First, you will need to have Java installed. Version 6 is sufficient.
+First, you will need to have [Java](http://www.oracle.com/technetwork/java/javase/downloads/jre-6u30-download-1377142.html) installed. Version 6 is sufficient.
 
 The easiest way to build this application is to use [Maven 2.2.1](http://maven.apache.org/download.html). Installation notes can be found on that website.
 
