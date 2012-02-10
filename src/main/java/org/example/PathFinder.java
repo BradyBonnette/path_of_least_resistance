@@ -8,7 +8,7 @@ public class PathFinder {
     // A stack to keep track of the ResistanceCoordinates we are visiting.
     // The path of least resistance will be derived from the stack itself.
     private Stack<ResistanceCoordinate> traceStack = new Stack<ResistanceCoordinate>();
-    
+
     private Stack<ResistanceCoordinate> currentShortestPath = new Stack<ResistanceCoordinate>();
 
     private int gridHeight = 0;
