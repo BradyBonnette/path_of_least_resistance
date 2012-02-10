@@ -11,10 +11,10 @@ The easiest way to build this application is to use [Maven 2.2.1](http://maven.a
 
 ## Run the application
 
-You can use Maven to execute the application:
+You can use Maven to execute the application.  From your checkout directory, run:
 
     mvn exec:java -Dexec.mainClass="org.example.PathOfLeastResistance" -Dexec.args="full_path_to_test_data"
 
-If you would like to run unit tests, run:
+If you would like to run unit tests, execute the following:
 
     mvn test
