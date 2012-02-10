@@ -4,25 +4,26 @@ import java.util.List;
 import java.util.Stack;
 
 public class PathFinder {
-    
+
+    // A stack to keep track of the ResistanceCoordinates we are visiting.
+    // The path of least resistance will be derived from the stack itself.
     private Stack<ResistanceCoordinate> traceStack = new Stack<ResistanceCoordinate>();
+    
+    private Stack<ResistanceCoordinate> currentShortestPath = new Stack<ResistanceCoordinate>();
 
     private int gridHeight = 0;
     private int gridWidth = 0;
     private int[][] grid;
     private int shortestResistanceOverall = Integer.MAX_VALUE;
-    private Stack<ResistanceCoordinate> currentShortestPath = new Stack<ResistanceCoordinate>();
 
-    public PathFinder() {
-    }
+    public PathFinder() { }
 
     public PathFinder(int[][] grid) {
-        // TODO: refactor this, see #setGrid()
-        this.grid = grid;
-        calculateGridHeight();
-        calculateGridWidth();
+        setGrid(grid);
     }
 
+    // Calculate methods, because we are dealing with a primitive array type that has no
+    // #width() and #height() methods.
     private void calculateGridWidth() {
         gridWidth = grid[0].length;
     }
@@ -33,7 +34,7 @@ public class PathFinder {
         for (int[] row : grid) {
             height++;
         }
-        this.gridHeight =  height;
+        gridHeight =  height;
     }
 
     // Depth First Search, from x,y parameters into
@@ -101,8 +102,6 @@ public class PathFinder {
     }
 
     public void setGrid(int[][] grid) {
-
-        // TODO: refactor this, see constructor
         this.grid = grid;
         calculateGridHeight();
         calculateGridWidth();
@@ -113,18 +112,9 @@ public class PathFinder {
     // we will wrap from the top of the grid back around to the bottom.
     public ResistanceCoordinate northeastFrom(int fromX, int fromY) {
 
-        int newX;
-        int newY;
-
         // Wrap around y if we are going north above 0.
-        // TODO:  Can we use modulo here for tightness?
-        if (fromY == 0) {
-            newY = getGridHeight() - 1;
-        } else {
-            newY = fromY - 1;
-        }
-
-        newX = fromX + 1;
+        int newY = (fromY == 0) ? getGridHeight() - 1 : fromY - 1;
+        int newX = fromX + 1;
 
         return new ResistanceCoordinate(newX, newY, grid[newY][newX]);
     }
@@ -134,18 +124,9 @@ public class PathFinder {
     // we will wrap from the bottom of the grid back around to the top.
     public ResistanceCoordinate southEastFrom(int fromX, int fromY) {
         
-        int newX;
-        int newY;
-        
         // Wrap around y if we are going south below the Grid's height
-        // TODO:  Can we use modulo here for tightness?
-        if (fromY == getGridHeight() - 1) {
-            newY = 0;
-        } else {
-            newY = fromY + 1;
-        }
-        
-        newX = fromX + 1;
+        int newY = (fromY == getGridHeight() - 1) ? 0 : fromY + 1;
+        int newX = fromX + 1;
         
         return new ResistanceCoordinate(newX, newY, grid[newY][newX]);
         
