@@ -20,8 +20,18 @@ public class GridParserTest {
         gridParser = new GridParser();
     }
 
+    @Test
+    public void test_GridParser_does_not_have_a_BufferedReader_by_default() {
+        Assert.assertNull(gridParser.getReader());
+    }
+
     @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_given_a_null_reader() throws GridParserException {
+    public void test_GridParser_throws_exception_if_noArg_parse_is_called_without_setting_a_reader_first() throws GridParserException {
+        gridParser.parse();
+    }
+    
+    @Test(expected = GridParserException.class)
+    public void test_GridParser_throws_exception_if_parse_is_given_a_null_reader() throws GridParserException {
         gridParser.parse(null);
     }
     
@@ -96,6 +106,16 @@ public class GridParserTest {
 
     }
 
+    @Test
+    public void test_GridParser_does_not_return_a_null_array_when_reader_is_set_via_mutator() throws GridParserException {
+        
+        GridParser parser = new GridParser();
+        
+        parser.setReader(new BufferedReader(new StringReader("1 2 3 4 5")));
+        
+        Assert.assertNotNull(parser.parse());
+    }
+    
     @Test
     public void test_GridParser_does_not_return_a_null_row_of_data_when_valid_data_is_given() throws GridParserException {
 

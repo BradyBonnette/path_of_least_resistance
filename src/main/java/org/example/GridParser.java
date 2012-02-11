@@ -12,6 +12,7 @@ public class GridParser {
     public static final int MIN_COLUMNS = 5;
 
     private int currentValidNumberOfColumns;
+    private BufferedReader reader;
 
     public int [][] parse(BufferedReader reader) throws GridParserException {
 
@@ -105,5 +106,17 @@ public class GridParser {
         }
 
         return lines;
+    }
+
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public int [][] parse() throws GridParserException {
+        return parse(this.reader);
+    }
+
+    public void setReader(BufferedReader bufferedReader) {
+        reader = bufferedReader;
     }
 }
