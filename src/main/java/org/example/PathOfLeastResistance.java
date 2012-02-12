@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.pathfinders.DepthFirstSearchPathFinder;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,8 +9,6 @@ import java.util.List;
 
 public class PathOfLeastResistance
 {
-    private static PathFinder pathFinder = new PathFinder();
-
     public static void main( String[] args )
     {
         if (args.length == 0) {
@@ -17,21 +17,19 @@ public class PathOfLeastResistance
         }
 
         GridParser gridParser = new GridParser();
+        DepthFirstSearchPathFinder dfsPathFinder = new DepthFirstSearchPathFinder();
 
         try {
-            pathFinder.setGrid(gridParser.parse(new BufferedReader(new FileReader(args[0]))));
-            List<ResistanceCoordinate> shortestPath = pathFinder.findPath();
+
+            gridParser.setReader(new BufferedReader(new FileReader(args[0])));
+            Grid grid = Grid.createGrid(gridParser);
+            
+            List<ResistanceCoordinate> shortestPath = dfsPathFinder.findPath(grid);
 
             printDetails(shortestPath);
 
-        } catch (GridParserException e) {
-            System.out.println("There was an error parsing grid file "+args[0]+":\n" + e);
-            System.exit(1);
         } catch (FileNotFoundException e) {
             System.out.println("Error:  File " + args[0] + " was not found.  Bailing.\n" + e);
-            System.exit(1);
-        } catch (PathFinderException e) {
-            System.out.println("There was an error finding a path with file" + args[0] + ". Bailing.\n" + e);
             System.exit(1);
         }
     }
