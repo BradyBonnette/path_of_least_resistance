@@ -184,5 +184,16 @@ public class GridTest {
         Assert.assertEquals(coord.getY(), 1);
         Assert.assertEquals(coord.getResistance(), 7);
     }
+    
+    @Test
+    public void test_Grid_getResistanceCoordinate_returns_correct_ResistanceCoordinate_when_given_x_and_y() {
+
+        ResistanceCoordinate coord = fiveByFiveGrid.getResistanceCoordinateFrom(0,0);
+
+        Assert.assertEquals(coord.getX(), 0);
+        Assert.assertEquals(coord.getY(), 0);
+        Assert.assertEquals(1,coord.getResistance());
+
+    }
 
 }

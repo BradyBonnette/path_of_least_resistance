@@ -93,4 +93,8 @@ public class Grid {
     public ResistanceCoordinate southEastFrom(ResistanceCoordinate fromCoordinate) {
         return southEastFrom(fromCoordinate.getX(), fromCoordinate.getY());
     }
+
+    public ResistanceCoordinate getResistanceCoordinateFrom(int fromX, int fromY) {
+        return new ResistanceCoordinate(fromX, fromY, gridArray[fromY][fromX]);
+    }
 }
