@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.pathfinders.DepthFirstSearchPathFinder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +12,8 @@ import java.util.List;
 public class PathOfLeastResistanceIntegrationTest
 {
     private GridParser gridParser;
-    private PathFinder pathFinder;
-    
+    private DepthFirstSearchPathFinder dfsPathFinder;
+
     private String example1;
     private String example2;
     private String example3;
@@ -25,8 +26,8 @@ public class PathOfLeastResistanceIntegrationTest
     public void setup() {
         
         gridParser = new GridParser();
-        pathFinder = new PathFinder();
-        
+        dfsPathFinder = new DepthFirstSearchPathFinder();
+
         example1 =  "3 4 1 2 8 6\n" +
                     "6 1 8 2 7 4\n" +
                     "5 9 3 9 9 5\n" +
@@ -51,9 +52,10 @@ public class PathOfLeastResistanceIntegrationTest
     @Test
     public void test_example1_parsed_from_a_StringReader() throws GridParserException, PathFinderException {
 
-        pathFinder.setGrid(gridParser.parse(new BufferedReader(new StringReader(example1))));
+        gridParser.setReader(new BufferedReader(new StringReader(example1)));
+        Grid grid = Grid.createGrid(gridParser);
 
-        List<ResistanceCoordinate> shortestPath = pathFinder.findPath();
+        List<ResistanceCoordinate> shortestPath = dfsPathFinder.findPath(grid);
 
         Assert.assertTrue(waterMadeItAllTheWayThrough(shortestPath, 6));
         Assert.assertEquals(totalResistanceOf(shortestPath),16);
@@ -63,9 +65,10 @@ public class PathOfLeastResistanceIntegrationTest
     @Test
     public void test_example1_parsed_from_a_FileReader() throws FileNotFoundException, GridParserException, PathFinderException {
 
-        pathFinder.setGrid(gridParser.parse(new BufferedReader(new FileReader(example1Filename))));
+        gridParser.setReader(new BufferedReader(new FileReader(example1Filename)));
+        Grid grid = Grid.createGrid(gridParser);
 
-        List<ResistanceCoordinate> shortestPath = pathFinder.findPath();
+        List<ResistanceCoordinate> shortestPath = dfsPathFinder.findPath(grid);
 
         Assert.assertTrue(waterMadeItAllTheWayThrough(shortestPath, 6));
         Assert.assertEquals(totalResistanceOf(shortestPath),16);
@@ -75,9 +78,10 @@ public class PathOfLeastResistanceIntegrationTest
     @Test
     public void test_example2_parsed_from_a_StringReader() throws GridParserException, PathFinderException {
 
-        pathFinder.setGrid(gridParser.parse(new BufferedReader(new StringReader(example2))));
+        gridParser.setReader(new BufferedReader(new StringReader(example2)));
+        Grid grid = Grid.createGrid(gridParser);
 
-        List<ResistanceCoordinate> shortestPath = pathFinder.findPath();
+        List<ResistanceCoordinate> shortestPath = dfsPathFinder.findPath(grid);
 
         Assert.assertTrue(waterMadeItAllTheWayThrough(shortestPath, 6));
         Assert.assertEquals(totalResistanceOf(shortestPath),11);
@@ -87,22 +91,23 @@ public class PathOfLeastResistanceIntegrationTest
     @Test
     public void test_example2_parsed_from_a_FileReader() throws GridParserException, PathFinderException, FileNotFoundException {
 
-        pathFinder.setGrid(gridParser.parse(new BufferedReader(new FileReader(example2Filename))));
+        gridParser.setReader(new BufferedReader(new FileReader(example2Filename)));
+        Grid grid = Grid.createGrid(gridParser);
 
-        List<ResistanceCoordinate> shortestPath = pathFinder.findPath();
+        List<ResistanceCoordinate> shortestPath = dfsPathFinder.findPath(grid);
 
         Assert.assertTrue(waterMadeItAllTheWayThrough(shortestPath, 6));
         Assert.assertEquals(totalResistanceOf(shortestPath),11);
         Assert.assertArrayEquals(getPathArray(shortestPath), new int[]{1,2,1,5,4,5});
     }
 
-
     @Test
     public void test_example3_parsed_from_a_StringReader() throws GridParserException, PathFinderException {
 
-        pathFinder.setGrid(gridParser.parse(new BufferedReader(new StringReader(example3))));
+        gridParser.setReader(new BufferedReader(new StringReader(example3)));
+        Grid grid = Grid.createGrid(gridParser);
 
-        List<ResistanceCoordinate> shortestPath = pathFinder.findPath();
+        List<ResistanceCoordinate> shortestPath = dfsPathFinder.findPath(grid);
 
         Assert.assertFalse(waterMadeItAllTheWayThrough(shortestPath, 5));
         Assert.assertEquals(totalResistanceOf(shortestPath),48);
@@ -112,9 +117,10 @@ public class PathOfLeastResistanceIntegrationTest
     @Test
     public void test_example3_parsed_from_a_FileReader() throws GridParserException, PathFinderException, FileNotFoundException {
 
-        pathFinder.setGrid(gridParser.parse(new BufferedReader(new FileReader(example3Filename))));
+        gridParser.setReader(new BufferedReader(new FileReader(example3Filename)));
+        Grid grid = Grid.createGrid(gridParser);
 
-        List<ResistanceCoordinate> shortestPath = pathFinder.findPath();
+        List<ResistanceCoordinate> shortestPath = dfsPathFinder.findPath(grid);
 
         Assert.assertFalse(waterMadeItAllTheWayThrough(shortestPath, 5));
         Assert.assertEquals(totalResistanceOf(shortestPath),48);
