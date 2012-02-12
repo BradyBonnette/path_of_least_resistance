@@ -21,22 +21,19 @@ public class GridTest {
     private Grid createFiveByFiveGrid() {
         GridParser parser = mock(GridParser.class);
 
-        try {
-            when(parser.parse()).thenReturn(fiveByFiveGridArray);
-        } catch (GridParserException e) {
-        }
+        when(parser.parse()).thenReturn(fiveByFiveGridArray);
 
         return Grid.createGrid(parser);        
     }
 
     @Test(expected = NullPointerException.class)
-    public void test_createGrid_throws_NullPointerException_if_given_a_null_parser() throws NullPointerException{
+    public void test_createGrid_throws_NullPointerException_if_given_a_null_parser() {
 
         Grid.createGrid(null);
     }
     
     @Test
-    public void test_verify_that_createGrid_calls_parse_on_GridParser() throws GridParserException {
+    public void test_verify_that_createGrid_calls_parse_on_GridParser() {
         
         GridParser parser = mock(GridParser.class);
 
@@ -48,7 +45,7 @@ public class GridTest {
     }
     
     @Test
-    public void test_createGrid_does_not_return_null_if_GridParser_parse_is_successful() throws GridParserException {
+    public void test_createGrid_does_not_return_null_if_GridParser_parse_is_successful() {
         
         GridParser parser = mock(GridParser.class);
         
@@ -58,7 +55,7 @@ public class GridTest {
     }
     
     @Test
-    public void test_Grid_returned_by_createGrid_has_correct_width_and_height() throws GridParserException {
+    public void test_Grid_returned_by_createGrid_has_correct_width_and_height() {
         
         GridParser parser = mock(GridParser.class);
 

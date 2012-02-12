@@ -50,7 +50,7 @@ public class PathOfLeastResistanceIntegrationTest
     }
     
     @Test
-    public void test_example1_parsed_from_a_StringReader() throws GridParserException {
+    public void test_example1_parsed_from_a_StringReader() {
 
         gridParser.setReader(new BufferedReader(new StringReader(example1)));
         Grid grid = Grid.createGrid(gridParser);
@@ -63,7 +63,7 @@ public class PathOfLeastResistanceIntegrationTest
     }
     
     @Test
-    public void test_example1_parsed_from_a_FileReader() throws FileNotFoundException, GridParserException {
+    public void test_example1_parsed_from_a_FileReader() throws FileNotFoundException {
 
         gridParser.setReader(new BufferedReader(new FileReader(example1Filename)));
         Grid grid = Grid.createGrid(gridParser);
@@ -76,7 +76,7 @@ public class PathOfLeastResistanceIntegrationTest
     }
 
     @Test
-    public void test_example2_parsed_from_a_StringReader() throws GridParserException {
+    public void test_example2_parsed_from_a_StringReader() {
 
         gridParser.setReader(new BufferedReader(new StringReader(example2)));
         Grid grid = Grid.createGrid(gridParser);
@@ -89,7 +89,7 @@ public class PathOfLeastResistanceIntegrationTest
     }
 
     @Test
-    public void test_example2_parsed_from_a_FileReader() throws GridParserException, FileNotFoundException {
+    public void test_example2_parsed_from_a_FileReader() throws FileNotFoundException {
 
         gridParser.setReader(new BufferedReader(new FileReader(example2Filename)));
         Grid grid = Grid.createGrid(gridParser);
@@ -102,7 +102,7 @@ public class PathOfLeastResistanceIntegrationTest
     }
 
     @Test
-    public void test_example3_parsed_from_a_StringReader() throws GridParserException {
+    public void test_example3_parsed_from_a_StringReader() {
 
         gridParser.setReader(new BufferedReader(new StringReader(example3)));
         Grid grid = Grid.createGrid(gridParser);
@@ -115,7 +115,7 @@ public class PathOfLeastResistanceIntegrationTest
     }
 
     @Test
-    public void test_example3_parsed_from_a_FileReader() throws GridParserException, FileNotFoundException {
+    public void test_example3_parsed_from_a_FileReader() throws FileNotFoundException {
 
         gridParser.setReader(new BufferedReader(new FileReader(example3Filename)));
         Grid grid = Grid.createGrid(gridParser);

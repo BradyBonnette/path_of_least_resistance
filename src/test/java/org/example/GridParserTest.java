@@ -14,9 +14,6 @@ public class GridParserTest {
 
     @Before
     public void setup() {
-        
-        // minimum: 1 row, 5 columns
-        // maximum: 10 rows, 100 columns
         gridParser = new GridParser();
     }
 
@@ -25,32 +22,32 @@ public class GridParserTest {
         Assert.assertNull(gridParser.getReader());
     }
 
-    @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_noArg_parse_is_called_without_setting_a_reader_first() throws GridParserException {
+    @Test(expected = NullPointerException.class)
+    public void test_GridParser_throws_exception_if_noArg_parse_is_called_without_setting_a_reader_first() {
         gridParser.parse();
     }
     
-    @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_parse_is_given_a_null_reader() throws GridParserException {
+    @Test(expected = NullPointerException.class)
+    public void test_GridParser_throws_exception_if_parse_is_given_a_null_reader() {
         gridParser.parse(null);
     }
     
-    @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_given_an_empty_grid() throws GridParserException {
+    @Test(expected = IllegalArgumentException.class)
+    public void test_GridParser_throws_exception_if_given_an_empty_grid() {
 
         gridParser.parse(new BufferedReader(new StringReader("")));
 
     }
 
-    @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_given_1_row_and_4_columns() throws GridParserException {
+    @Test(expected = IllegalArgumentException.class)
+    public void test_GridParser_throws_exception_if_given_1_row_and_4_columns() {
 
         gridParser.parse(new BufferedReader(new StringReader("1 2 3 4")));
 
     }
 
-    @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_given_1_row_and_101_columns() throws GridParserException {
+    @Test(expected = IllegalArgumentException.class)
+    public void test_GridParser_throws_exception_if_given_1_row_and_101_columns() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -63,8 +60,8 @@ public class GridParserTest {
         gridParser.parse(new BufferedReader(new StringReader(sb.toString())));
     }
 
-    @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_given_11_rows_and_1_column() throws GridParserException {
+    @Test(expected = IllegalArgumentException.class)
+    public void test_GridParser_throws_exception_if_given_11_rows_and_1_column() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -78,8 +75,8 @@ public class GridParserTest {
 
     }
 
-    @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_given_11_rows_and_5_columns() throws GridParserException {
+    @Test(expected = IllegalArgumentException.class)
+    public void test_GridParser_throws_exception_if_given_11_rows_and_5_columns() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -92,22 +89,22 @@ public class GridParserTest {
         gridParser.parse(new BufferedReader(new StringReader(sb.toString())));
     }
 
-    @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_given_non_integer_data() throws GridParserException {
+    @Test(expected = IllegalArgumentException.class)
+    public void test_GridParser_throws_exception_if_given_non_integer_data() {
 
         gridParser.parse(new BufferedReader(new StringReader("1 2 3 4 5 pie")));
 
     }
 
-    @Test(expected = GridParserException.class)
-    public void test_GridParser_throws_exception_if_two_rows_have_a_different_number_of_columns() throws GridParserException {
+    @Test(expected = IllegalArgumentException.class)
+    public void test_GridParser_throws_exception_if_two_rows_have_a_different_number_of_columns() {
 
         gridParser.parse(new BufferedReader(new StringReader("1 2 3 4 5 6\n1 2 3 4 5")));
 
     }
 
     @Test
-    public void test_GridParser_does_not_return_a_null_array_when_reader_is_set_via_mutator() throws GridParserException {
+    public void test_GridParser_does_not_return_a_null_array_when_reader_is_set_via_mutator() {
         
         GridParser parser = new GridParser();
         
@@ -117,14 +114,14 @@ public class GridParserTest {
     }
     
     @Test
-    public void test_GridParser_does_not_return_a_null_row_of_data_when_valid_data_is_given() throws GridParserException {
+    public void test_GridParser_does_not_return_a_null_row_of_data_when_valid_data_is_given() {
 
         Assert.assertNotNull(gridParser.parse(new BufferedReader(new StringReader("1 2 3 4 5")))[0]);
 
     }
 
     @Test
-    public void test_GridParser_returns_a_valid_single_row_5_column_integer_2d_array() throws GridParserException {
+    public void test_GridParser_returns_a_valid_single_row_5_column_integer_2d_array() {
 
         int[][] parsedArrayToTest = gridParser.parse(new BufferedReader(new StringReader("1 2 3 4 5")));
         int[][] arrayToTestAgainst = new int[][]{{1, 2, 3, 4, 5}};
@@ -134,7 +131,7 @@ public class GridParserTest {
     }
 
     @Test
-    public void test_GridParser_returns_a_valid_10_row_100_column_integer_2d_array() throws GridParserException {
+    public void test_GridParser_returns_a_valid_10_row_100_column_integer_2d_array() {
 
         StringBuffer sb = new StringBuffer();
 
@@ -157,12 +154,10 @@ public class GridParserTest {
     }
     
     @Test
-    public void test_GridParser_parses_negative_integers() throws GridParserException {
+    public void test_GridParser_parses_negative_integers() {
 
         Assert.assertTrue(Arrays.equals(gridParser.parse(new BufferedReader(new StringReader("-1 -2 -3 -4 -5")))[0],
                 new int[]{-1,-2,-3,-4,-5}));
 
     }
-
-
 }

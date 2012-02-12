@@ -14,7 +14,7 @@ public class GridParser {
     private int currentValidNumberOfColumns;
     private BufferedReader reader;
 
-    public int [][] parse(BufferedReader reader) throws GridParserException {
+    public int [][] parse(BufferedReader reader) {
 
         // Create a List of all the lines given to us by the reader.
         List<String> lines = extractLinesFromReader(reader);
@@ -43,7 +43,7 @@ public class GridParser {
                     arrayToReturn[lineIndex][columnIndex] = Integer.parseInt(columnDataString);
 
                 } catch (NumberFormatException nfe) {
-                    throw new GridParserException("Error parsing data: Column data '"+columnDataString+"' is not an integer.");
+                    throw new NumberFormatException("Error parsing data: Column data '"+columnDataString+"' is not an integer.");
                 }
 
                 columnIndex++;
@@ -58,7 +58,7 @@ public class GridParser {
     }
 
     // Extract and test the number of columns that was extracted from the current line of data.
-    private int getNumberOfColumnsFrom(String[] columnStrings) throws GridParserException {
+    private int getNumberOfColumnsFrom(String[] columnStrings) {
 
         if (currentValidNumberOfColumns == 0 && columnStrings.length > 0) {
             currentValidNumberOfColumns = columnStrings.length;
@@ -71,38 +71,38 @@ public class GridParser {
     }
 
     // Sanity Checks
-    private void verifyNumberOfColumns(String[] columnStrings) throws GridParserException {
+    private void verifyNumberOfColumns(String[] columnStrings) {
 
         if (columnStrings.length != currentValidNumberOfColumns) {
-            throw new GridParserException("Error parsing data: Number of columns is not consistent across all rows.");
+            throw new IllegalArgumentException("Error parsing data: Number of columns is not consistent across all rows.");
         }
 
         if (columnStrings.length < MIN_COLUMNS || columnStrings.length > MAX_COLUMNS) {
-            throw new GridParserException("Error parsing data: Number of columns per row must be between "+MIN_COLUMNS+" and "+MAX_COLUMNS+".");
+            throw new IllegalArgumentException("Error parsing data: Number of columns per row must be between "+MIN_COLUMNS+" and "+MAX_COLUMNS+".");
         }
     }
 
-    private List<String> extractLinesFromReader(BufferedReader reader) throws GridParserException {
+    private List<String> extractLinesFromReader(BufferedReader reader) {
 
         String line;
         List<String> lines = new ArrayList<String>();
 
         if (reader == null)
-            throw new GridParserException("GridParser received a null reader.");
+            throw new NullPointerException("GridParser received a null reader.");
         
         try {
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
             }
-        } catch (Exception e) {
-            throw new GridParserException("There was an error parsing data from the source: " + e);
+        } catch (IOException e) {
+            throw new RuntimeException("There was an error parsing data from the source: " + e);
         } finally {
             // Close up the reader when finished or if we hit an exception.
             try { if (reader != null) reader.close(); } catch(IOException e) { /* Cant do anything here.*/ }
         }
 
         if (lines.isEmpty() || lines.size() > MAX_ROWS) {
-            throw new GridParserException("Error parsing data: Please ensure that the supplied data is not empty and contains at most 10 rows");
+            throw new IllegalArgumentException("Error parsing data: Please ensure that the supplied data is not empty and contains at most 10 rows");
         }
 
         return lines;
@@ -112,7 +112,7 @@ public class GridParser {
         return reader;
     }
 
-    public int [][] parse() throws GridParserException {
+    public int [][] parse() {
         return parse(this.reader);
     }
 

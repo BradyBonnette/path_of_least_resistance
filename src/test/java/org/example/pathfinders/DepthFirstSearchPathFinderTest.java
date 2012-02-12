@@ -2,7 +2,6 @@ package org.example.pathfinders;
 
 import org.example.Grid;
 import org.example.GridParser;
-import org.example.GridParserException;
 import org.example.ResistanceCoordinate;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class DepthFirstSearchPathFinderTest {
 
@@ -78,7 +78,7 @@ public class DepthFirstSearchPathFinderTest {
     }
     
     @Test
-    public void test_DFSPathFinder_findPath_returns_a_list_of_5_items_when_given_a_5x5_grid() throws GridParserException {
+    public void test_DFSPathFinder_findPath_returns_a_list_of_5_items_when_given_a_5x5_grid() {
 
         GridParser gridParser = mock(GridParser.class);
         
@@ -90,7 +90,7 @@ public class DepthFirstSearchPathFinderTest {
     }
 
     @Test
-    public void test_DFSPathFinder_findPath_returns_a_list_of_5_items_when_given_a_5x5_grid_of_negative_integers() throws GridParserException {
+    public void test_DFSPathFinder_findPath_returns_a_list_of_5_items_when_given_a_5x5_grid_of_negative_integers() {
 
         GridParser gridParser = mock(GridParser.class);
 

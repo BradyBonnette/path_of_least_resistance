@@ -14,11 +14,7 @@ public class Grid {
             throw new NullPointerException("Cannot create a grid from a null Grid Parser.");
         }
 
-        try {
-            array = gridParser.parse();
-        } catch (GridParserException e) {
-            throw new RuntimeException("There was an error parsing Grid data: \n" + e);
-        }
+        array = gridParser.parse();
 
         return new Grid(array);
     }
